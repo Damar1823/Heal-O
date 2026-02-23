@@ -5,7 +5,7 @@ import requests
 # 1. Konfigurasi Tampilan
 st.set_page_config(page_title="Heal-o", page_icon="🌙")
 st.title("🌙 Heal-o")
-st.caption("Teman curhat & kreatifmu. Bilang 'Gambar [sesuatu]' kalau mau aku melukis.")
+st.caption("Hi Kimberley, aku Heal-O asisten pribadi kamu.")
 
 # 2. Ambil Kunci Rahasia
 try:
@@ -64,4 +64,5 @@ if prompt := st.chat_input("Mau cerita atau bikin ide apa hari ini?"):
                 st.session_state.messages.append({"role": "assistant", "content": msg})
             except:
                 st.error("Aduh, aku lagi loading lama. Coba kirim pesannya lagi ya!")
+
 
