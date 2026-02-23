@@ -3,7 +3,7 @@ from groq import Groq
 
 st.set_page_config(page_title="Heal-o", page_icon="🌙")
 st.title("🌙 Heal-o")
-st.write("Halo, Heal-o disini siap untuk membantu.")
+st.write("Halo Kimberley, aku Heal-o dari Damar buat membantu kamu disini.")
 
 try:
     client = Groq(api_key="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")
@@ -33,3 +33,4 @@ if prompt := st.chat_input("Lagi ngerasa apa hari ini?"):
         msg = response.choices[0].message.content
         st.markdown(msg)
     st.session_state.messages.append({"role": "assistant", "content": msg})
+
