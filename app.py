@@ -1,7 +1,6 @@
 import streamlit as st
 from groq import Groq
 import requests
-import io
 
 # 1. Konfigurasi Tampilan
 st.set_page_config(page_title="Heal-o", page_icon="🌙")
@@ -42,8 +41,7 @@ if prompt := st.chat_input("Mau cerita atau bikin ide apa hari ini?"):
         st.markdown(prompt)
 
     # CEK: Apakah user minta gambar?
-    kata_kunci =
-    if any(kata in prompt.lower() for kata in kata_kunci):
+    if any(kata in prompt.lower() for kata in):
         with st.chat_message("assistant"):
             with st.spinner("Tunggu bentar ya, aku lukis dulu..."):
                 try:
