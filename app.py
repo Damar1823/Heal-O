@@ -64,3 +64,4 @@ if prompt := st.chat_input("Mau cerita atau bikin ide apa hari ini?"):
                 st.session_state.messages.append({"role": "assistant", "content": msg})
             except:
                 st.error("Aduh, aku lagi loading lama. Coba kirim pesannya lagi ya!")
+
