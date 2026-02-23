@@ -9,13 +9,12 @@ st.title("🌙 Heal-o")
 st.caption("Teman curhat & kreatifmu. Ketik 'Gambar [sesuatu]' kalau mau aku melukis.")
 
 # 2. Ambil Kunci Rahasia dari 'Brankas' Streamlit
-# Pastikan kamu sudah isi GROQ_API_KEY dan HF_TOKEN di menu Secrets Streamlit!
 try:
     GROQ_KEY = st.secrets["GROQ_API_KEY"]
     HF_TOKEN = st.secrets["HF_TOKEN"]
     client = Groq(api_key=GROQ_KEY)
-except:
-    st.error("Waduh, kunci brankas (Secrets) belum lengkap nih!")
+except Exception as e:
+    st.error("Waduh, kunci brankas (Secrets) belum lengkap atau salah ketik di menu Secrets!")
 
 # Fungsi buat panggil pelukis (Hugging Face)
 def generate_image(prompt_text):
@@ -51,16 +50,19 @@ if prompt := st.chat_input("Mau cerita atau bikin ide apa hari ini?"):
                     image_bytes = generate_image(prompt)
                     st.image(image_bytes, caption="Ini buat kamu ✨")
                     st.session_state.messages.append({"role": "assistant", "content": f"Aku sudah buatkan gambarnya untukmu!"})
-                except:
+                except Exception as e:
                     st.error("Yah, pelukisnya lagi capek. Coba lagi nanti ya!")
     
     # JIKA: Curhat/Brainstorming biasa
     else:
         with st.chat_message("assistant"):
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=st.session_state.messages
-            )
-            msg = response.choices[0].message.content
-            st.markdown(msg)
-            st.session_state.messages.append({"role": "assistant", "content": msg})
+            try:
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=st.session_state.messages
+                )
+                msg = response.choices[0].message.content
+                st.markdown(msg)
+                st.session_state.messages.append({"role": "assistant", "content": msg})
+            except Exception as e:
+                st.error("Waduh, otaknya lagi loading lama. Coba chat lagi ya!")
