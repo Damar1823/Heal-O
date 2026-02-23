@@ -40,8 +40,11 @@ if prompt := st.chat_input("Mau cerita atau bikin ide apa hari ini?"):
         st.markdown(prompt)
 
     input_user = prompt.lower()
-    # Deteksi kata kunci gambar
-    minta_gambar = any(x in input_user for x in)
+    
+    # LOGIKA BARU: Cek kata kunci satu-satu biar nggak error syntax
+    minta_gambar = False
+    if "gambar" in input_user or "lukis" in input_user or "foto" in input_user or "image" in input_user:
+        minta_gambar = True
     
     if minta_gambar:
         with st.chat_message("assistant"):
@@ -49,7 +52,7 @@ if prompt := st.chat_input("Mau cerita atau bikin ide apa hari ini?"):
                 try:
                     image_bytes = generate_image(prompt)
                     st.image(image_bytes, caption="Ini buat kamu 🌙")
-                    st.session_state.messages.append({"role": "assistant", "content": f"Aku sudah buatkan gambarnya: {prompt}"})
+                    st.session_state.messages.append({"role": "assistant", "content": "Aku sudah buatkan gambarnya!"})
                 except:
                     st.error("Waduh, pelukisnya lagi antri. Coba klik kirim lagi ya!")
     else:
