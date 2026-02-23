@@ -2,12 +2,12 @@ import streamlit as st
 from groq import Groq
 import requests
 
-# 1. Tampilan Aplikasi
+# 1. Konfigurasi Tampilan
 st.set_page_config(page_title="Heal-o", page_icon="🌙")
 st.title("🌙 Heal-o")
 st.caption("Teman curhat & kreatifmu. Bilang 'Gambar [sesuatu]' kalau mau aku melukis.")
 
-# 2. Koneksi ke Brankas (Secrets)
+# 2. Koneksi ke Secrets
 try:
     GROQ_KEY = st.secrets["GROQ_API_KEY"]
     HF_TOKEN = st.secrets["HF_TOKEN"]
@@ -37,8 +37,10 @@ if prompt := st.chat_input("Lagi ngerasa apa hari ini?"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # BARIS INI YANG TADI KOSONG (SUDAH DIPERBAIKI):
-    if any(kata in prompt.lower() for kata in):
+    # PERHATIKAN BARIS INI (HARUS ADA ISINYA):
+    daftar_kata =
+    
+    if any(kata in prompt.lower() for kata in daftar_kata):
         with st.chat_message("assistant"):
             with st.spinner("Tunggu bentar ya, aku lukis dulu..."):
                 try:
