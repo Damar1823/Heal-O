@@ -2,12 +2,12 @@ import streamlit as st
 from groq import Groq
 import requests
 
-# 1. Konfigurasi Tampilan
+# 1. Tampilan Utama
 st.set_page_config(page_title="Heal-o", page_icon="🌙")
 st.title("🌙 Heal-o")
 st.caption("Teman curhat & kreatifmu. Bilang 'Gambar [sesuatu]' kalau mau aku melukis.")
 
-# 2. Koneksi ke Secrets
+# 2. Ambil Kunci dari Secrets
 try:
     GROQ_KEY = st.secrets["GROQ_API_KEY"]
     HF_TOKEN = st.secrets["HF_TOKEN"]
@@ -15,7 +15,7 @@ try:
 except:
     st.error("Cek menu Secrets di Streamlit ya, kuncinya belum lengkap!")
 
-# Fungsi buat panggil pelukis (Hugging Face)
+# Fungsi panggil pelukis
 def generate_image(prompt_text):
     API_URL = "https://api-inference.huggingface.co"
     headers = {"Authorization": f"Bearer {HF_TOKEN}"}
@@ -37,10 +37,15 @@ if prompt := st.chat_input("Lagi ngerasa apa hari ini?"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # PERHATIKAN BARIS INI (HARUS ADA ISINYA):
-    daftar_kata =
+    # --- BAGIAN KRUSIAL (PASTIKAN TER-COPY SEMUA) ---
+    input_user = prompt.lower()
+    minta_gambar = False
     
-    if any(kata in prompt.lower() for kata in daftar_kata):
+    # Cek kata kunci satu-satu biar nggak error syntax
+    if "gambar" in input_user or "lukis" in input_user or "foto" in input_user or "image" in input_user:
+        minta_gambar = True
+
+    if minta_gambar:
         with st.chat_message("assistant"):
             with st.spinner("Tunggu bentar ya, aku lukis dulu..."):
                 try:
